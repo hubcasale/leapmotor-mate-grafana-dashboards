@@ -1,0 +1,178 @@
+{
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "panels": [],
+      "title": "Statistiche per periodo",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 9,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT strftime('%Y-%m', started_at) as Mese, COUNT(*) as \"N. viaggi\", ROUND(SUM(distance_km),0) as \"Distanza (km)\", ROUND(AVG(efficiency_kwh_100km),1) as \"Efficienza media (kWh/100km)\", ROUND(SUM(regen_kwh),1) as \"Rigenerazione (kWh)\" FROM trips WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY 1 DESC LIMIT 24",
+          "queryType": "table",
+          "rawQueryText": "SELECT strftime('%Y-%m', started_at) as Mese, COUNT(*) as \"N. viaggi\", ROUND(SUM(distance_km),0) as \"Distanza (km)\", ROUND(AVG(efficiency_kwh_100km),1) as \"Efficienza media (kWh/100km)\", ROUND(SUM(regen_kwh),1) as \"Rigenerazione (kWh)\" FROM trips WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY 1 DESC LIMIT 24",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Statistiche mensili",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "axisSoftMin": 0,
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "lineWidth": 1,
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "noValue": "--",
+          "unit": "km"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "mese"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 15,
+        "x": 9,
+        "y": 1
+      },
+      "id": 3,
+      "options": {
+        "barWidth": 0.97,
+        "groupWidth": 0.7,
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "orientation": "auto",
+        "showValue": "always",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "mese"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT strftime('%Y-%m', started_at) as mese, ROUND(SUM(distance_km),0) as km FROM trips WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY 1 ASC LIMIT 24",
+          "queryType": "table",
+          "rawQueryText": "SELECT strftime('%Y-%m', started_at) as mese, ROUND(SUM(distance_km),0) as km FROM trips WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY 1 ASC LIMIT 24",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Km percorsi per mese",
+      "type": "barchart"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 4,
+      "panels": [],
+      "title": "Viaggi lunghi",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 5,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT started_at as Inizio, ROUND(distance_km,1) as \"Distanza (km)\", ROUND(duration_min,0) as \"Durata (min)\", ROUND(efficiency_kwh_100km,1) as \"Efficienza (kWh/100km)\", ROUND(elevation_gain_m,0) as \"Dislivello + (m)\", ROUND(elevation_loss_m,0) as \"Dislivello - (m)\" FROM trips WHERE distance_km > 50 AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to ORDER BY started_at DESC LIMIT 30",
+          "queryType": "table",
+          "rawQueryText": "SELECT started_at as Inizio, ROUND(distance_km,1) as \"Distanza (km)\", ROUND(duration_min,0) as \"Durata (min)\", ROUND(efficiency_kwh_100km,1) as \"Efficienza (kWh/100km)\", ROUND(elevation_gain_m,0) as \"Dislivello + (m)\", ROUND(elevation_loss_m,0) as \"Dislivello - (m)\" FROM trips WHERE distance_km > 50 AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to ORDER BY started_at DESC LIMIT 30",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Viaggi lunghi (> 50 km)",
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 39,
+  "time": {
+    "from": "now-1y",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "LeapMotor Mate - Viaggi",
+  "uid": "lm-viaggi"
+}

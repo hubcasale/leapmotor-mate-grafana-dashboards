@@ -1,0 +1,176 @@
+{
+  "panels": [
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT started_at as Inizio, ended_at as Fine, charge_type as Tipo, ROUND(start_soc,0) as \"SOC iniziale\", ROUND(end_soc,0) as \"SOC finale\", ROUND(energy_added_kwh,1) as kWh, ROUND(cost,2) as Costo, ROUND(max_power_kw,1) as \"Potenza max (kW)\", COALESCE(station_name, location_name, '-') as Luogo FROM charges WHERE id = $charge_id",
+          "queryType": "table",
+          "rawQueryText": "SELECT started_at as Inizio, ended_at as Fine, charge_type as Tipo, ROUND(start_soc,0) as \"SOC iniziale\", ROUND(end_soc,0) as \"SOC finale\", ROUND(energy_added_kwh,1) as kWh, ROUND(cost,2) as Costo, ROUND(max_power_kw,1) as \"Potenza max (kW)\", COALESCE(station_name, location_name, '-') as Luogo FROM charges WHERE id = $charge_id",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "Dettaglio sessione",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "minuti"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "minuti"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 2,
+      "options": {
+        "xField": "minuti"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "WITH dur AS (SELECT MAX((julianday(c.ended_at)-julianday(c.started_at))*1440.0/60.0, 1.0) as bin_min FROM charges c WHERE c.id = $charge_id) SELECT CAST((julianday(p.recorded_at) - julianday(c.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) || '' as minuti, ROUND(AVG(ABS(p.charge_voltage_v * p.charge_current_a)/1000.0),3) as kW FROM positions p, charges c WHERE c.id = $charge_id AND p.charging = 1 AND p.recorded_at >= c.started_at AND p.recorded_at <= COALESCE(c.ended_at, datetime('now')) GROUP BY CAST((julianday(p.recorded_at) - julianday(c.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) ORDER BY MIN(p.recorded_at)",
+          "queryType": "table",
+          "rawQueryText": "WITH dur AS (SELECT MAX((julianday(c.ended_at)-julianday(c.started_at))*1440.0/60.0, 1.0) as bin_min FROM charges c WHERE c.id = $charge_id) SELECT CAST((julianday(p.recorded_at) - julianday(c.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) || '' as minuti, ROUND(AVG(ABS(p.charge_voltage_v * p.charge_current_a)/1000.0),3) as kW FROM positions p, charges c WHERE c.id = $charge_id AND p.charging = 1 AND p.recorded_at >= c.started_at AND p.recorded_at <= COALESCE(c.ended_at, datetime('now')) GROUP BY CAST((julianday(p.recorded_at) - julianday(c.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) ORDER BY MIN(p.recorded_at)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Potenza di ricarica (kW, lato batteria)",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "minuti"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "minuti"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 3,
+      "options": {
+        "xField": "minuti"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "WITH dur AS (SELECT MAX((julianday(c.ended_at)-julianday(c.started_at))*1440.0/60.0, 1.0) as bin_min FROM charges c WHERE c.id = $charge_id) SELECT CAST((julianday(p.recorded_at) - julianday(c.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) || '' as minuti, ROUND(AVG(p.soc),1) as soc FROM positions p, charges c WHERE c.id = $charge_id AND p.charging = 1 AND p.recorded_at >= c.started_at AND p.recorded_at <= COALESCE(c.ended_at, datetime('now')) GROUP BY CAST((julianday(p.recorded_at) - julianday(c.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) ORDER BY MIN(p.recorded_at)",
+          "queryType": "table",
+          "rawQueryText": "WITH dur AS (SELECT MAX((julianday(c.ended_at)-julianday(c.started_at))*1440.0/60.0, 1.0) as bin_min FROM charges c WHERE c.id = $charge_id) SELECT CAST((julianday(p.recorded_at) - julianday(c.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) || '' as minuti, ROUND(AVG(p.soc),1) as soc FROM positions p, charges c WHERE c.id = $charge_id AND p.charging = 1 AND p.recorded_at >= c.started_at AND p.recorded_at <= COALESCE(c.ended_at, datetime('now')) GROUP BY CAST((julianday(p.recorded_at) - julianday(c.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) ORDER BY MIN(p.recorded_at)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "SOC durante la ricarica (%)",
+      "type": "barchart"
+    }
+  ],
+  "schemaVersion": 39,
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "frser-sqlite-datasource",
+          "uid": "P0941905C0D8205B6"
+        },
+        "includeAll": false,
+        "label": "Sessione di ricarica",
+        "multi": false,
+        "name": "charge_id",
+        "query": "SELECT id as __value, started_at || ' - ' || ROUND(energy_added_kwh,1) || ' kWh (' || charge_type || ')' as __text FROM charges WHERE energy_added_kwh IS NOT NULL ORDER BY started_at DESC LIMIT 60",
+        "refresh": 1,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-90d",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "LeapMotor Mate - Curva di Ricarica",
+  "uid": "lm-curva-ricarica"
+}

@@ -1,0 +1,15 @@
+apiVersion: 1
+
+datasources:
+  - name: LeapMotor Mate SQLite
+    type: frser-sqlite-datasource
+    uid: P0941905C0D8205B6
+    access: proxy
+    isDefault: true
+    # Path as seen from *inside* the Grafana container.
+    # Mount your leapmotor_mate.db read-only into the container at this path, e.g.:
+    #   volumes:
+    #     - /path/to/leapmotor-mate/data/leapmotor_mate.db:/mate-data/leapmotor_mate.db:ro
+    jsonData:
+      path: /mate-data/leapmotor_mate.db
+    editable: false

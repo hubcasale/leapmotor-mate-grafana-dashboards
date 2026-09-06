@@ -1,0 +1,895 @@
+{
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "panels": [],
+      "title": "Ricarica più recente",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT started_at as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "queryType": "table",
+          "rawQueryText": "SELECT started_at as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Iniziata il",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 6,
+        "y": 1
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT charge_type as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "queryType": "table",
+          "rawQueryText": "SELECT charge_type as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Tipo",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 6,
+        "x": 9,
+        "y": 1
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT COALESCE(station_name, location_name, 'Sconosciuta') as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "queryType": "table",
+          "rawQueryText": "SELECT COALESCE(station_name, location_name, 'Sconosciuta') as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Luogo",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "km"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 15,
+        "y": 1
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT odometer_km as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "queryType": "table",
+          "rawQueryText": "SELECT odometer_km as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Odometro (km)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 18,
+        "y": 1
+      },
+      "id": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT duration_min as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "queryType": "table",
+          "rawQueryText": "SELECT duration_min as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Durata (min)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "super-light-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyEUR"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 21,
+        "y": 1
+      },
+      "id": 7,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT cost as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "queryType": "table",
+          "rawQueryText": "SELECT cost as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Costo (€)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 4
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT start_soc as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "queryType": "table",
+          "rawQueryText": "SELECT start_soc as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "SOC iniziale (%)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 4
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT end_soc as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "queryType": "table",
+          "rawQueryText": "SELECT end_soc as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "SOC finale (%)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "max": 67.1,
+          "min": 0,
+          "unit": "kwatth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 8,
+        "y": 4
+      },
+      "id": 11,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT energy_added_kwh as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "queryType": "table",
+          "rawQueryText": "SELECT energy_added_kwh as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Energia caricata / Capacità batteria (kWh)",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "orange",
+                "value": null
+              }
+            ]
+          },
+          "unit": "kwatt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 4
+      },
+      "id": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT max_power_kw as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "queryType": "table",
+          "rawQueryText": "SELECT max_power_kw as value FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Potenza max (kW)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "kwatth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 4
+      },
+      "id": 13,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT capacity_kwh as value FROM vehicles LIMIT 1",
+          "queryType": "table",
+          "rawQueryText": "SELECT capacity_kwh as value FROM vehicles LIMIT 1",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Capacità batteria (kWh)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatt"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "minuti"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 14,
+      "options": {
+        "xField": "minuti"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "WITH ch AS (SELECT * FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)), dur AS (SELECT MAX((julianday(ch.ended_at)-julianday(ch.started_at))*1440.0/60.0, 1.0) as bin_min FROM ch) SELECT CAST((julianday(p.recorded_at) - julianday(ch.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) || '' as minuti, ROUND(AVG(ABS(p.charge_voltage_v * p.charge_current_a)/1000.0),3) as kW FROM positions p, ch WHERE p.charging = 1 AND p.recorded_at >= ch.started_at AND p.recorded_at <= COALESCE(ch.ended_at, datetime('now')) GROUP BY CAST((julianday(p.recorded_at) - julianday(ch.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) ORDER BY MIN(p.recorded_at)",
+          "queryType": "table",
+          "rawQueryText": "WITH ch AS (SELECT * FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)), dur AS (SELECT MAX((julianday(ch.ended_at)-julianday(ch.started_at))*1440.0/60.0, 1.0) as bin_min FROM ch) SELECT CAST((julianday(p.recorded_at) - julianday(ch.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) || '' as minuti, ROUND(AVG(ABS(p.charge_voltage_v * p.charge_current_a)/1000.0),3) as kW FROM positions p, ch WHERE p.charging = 1 AND p.recorded_at >= ch.started_at AND p.recorded_at <= COALESCE(ch.ended_at, datetime('now')) GROUP BY CAST((julianday(p.recorded_at) - julianday(ch.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) ORDER BY MIN(p.recorded_at)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Potenza di ricarica (kW, lato batteria)",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "minuti"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 15,
+      "options": {
+        "xField": "minuti"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "WITH ch AS (SELECT * FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)), dur AS (SELECT MAX((julianday(ch.ended_at)-julianday(ch.started_at))*1440.0/60.0, 1.0) as bin_min FROM ch) SELECT CAST((julianday(p.recorded_at) - julianday(ch.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) || '' as minuti, ROUND(AVG(p.soc),1) as soc FROM positions p, ch WHERE p.charging = 1 AND p.recorded_at >= ch.started_at AND p.recorded_at <= COALESCE(ch.ended_at, datetime('now')) GROUP BY CAST((julianday(p.recorded_at) - julianday(ch.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) ORDER BY MIN(p.recorded_at)",
+          "queryType": "table",
+          "rawQueryText": "WITH ch AS (SELECT * FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)), dur AS (SELECT MAX((julianday(ch.ended_at)-julianday(ch.started_at))*1440.0/60.0, 1.0) as bin_min FROM ch) SELECT CAST((julianday(p.recorded_at) - julianday(ch.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) || '' as minuti, ROUND(AVG(p.soc),1) as soc FROM positions p, ch WHERE p.charging = 1 AND p.recorded_at >= ch.started_at AND p.recorded_at <= COALESCE(ch.ended_at, datetime('now')) GROUP BY CAST((julianday(p.recorded_at) - julianday(ch.started_at)) * 1440 / (SELECT bin_min FROM dur) AS INT) ORDER BY MIN(p.recorded_at)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "SOC durante la ricarica (%)",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 26
+      },
+      "id": 16,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "osm-standard"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": false,
+              "style": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "opacity": 0,
+                "size": {
+                  "fixed": 3,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                }
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Temp Fix Grafana Issue #89777",
+            "tooltip": false,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "style": {
+                "color": {
+                  "fixed": "yellow"
+                },
+                "opacity": 0.9,
+                "size": {
+                  "fixed": 12,
+                  "max": 20,
+                  "min": 8
+                }
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Posizione ricarica",
+            "opacity": 1,
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "view": {
+          "allLayers": true,
+          "id": "fit",
+          "lat": 0,
+          "lon": 0,
+          "zoom": 15
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT latitude, longitude FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1) AND latitude IS NOT NULL",
+          "queryType": "table",
+          "rawQueryText": "SELECT latitude, longitude FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1) AND latitude IS NOT NULL",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Posizione della ricarica",
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 26
+      },
+      "id": 17,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT started_at as Inizio, ended_at as Fine, charge_type as Tipo, ROUND(start_soc,0) as \"SOC iniziale\", ROUND(end_soc,0) as \"SOC finale\", ROUND(energy_added_kwh,1) as kWh, ROUND(cost,2) as Costo, ROUND(max_power_kw,1) as \"Potenza max (kW)\", COALESCE(station_name, location_name, '-') as Luogo, ROUND(odometer_km,0) as Odometro FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "queryType": "table",
+          "rawQueryText": "SELECT started_at as Inizio, ended_at as Fine, charge_type as Tipo, ROUND(start_soc,0) as \"SOC iniziale\", ROUND(end_soc,0) as \"SOC finale\", ROUND(energy_added_kwh,1) as kWh, ROUND(cost,2) as Costo, ROUND(max_power_kw,1) as \"Potenza max (kW)\", COALESCE(station_name, location_name, '-') as Luogo, ROUND(odometer_km,0) as Odometro FROM charges WHERE id = (SELECT id FROM charges ORDER BY id DESC LIMIT 1)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Dettaglio",
+      "type": "table"
+    }
+  ],
+  "refresh": "1m",
+  "schemaVersion": 39,
+  "time": {
+    "from": "now-1y",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "LeapMotor Mate - Ricarica Attuale",
+  "uid": "lm-ricarica-attuale"
+}

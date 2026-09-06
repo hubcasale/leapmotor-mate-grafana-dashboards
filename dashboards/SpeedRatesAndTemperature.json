@@ -1,0 +1,239 @@
+{
+  "panels": [
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "fascia"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "xField": "fascia"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT CAST((distance_km/(duration_min/60.0))/10 AS INT)*10 || '' as fascia, ROUND(AVG(efficiency_kwh_100km),1) as \"kWh/100km\" FROM trips WHERE duration_min > 2 AND distance_km > 0.5 AND efficiency_kwh_100km IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY CAST((distance_km/(duration_min/60.0))/10 AS INT)",
+          "queryType": "table",
+          "rawQueryText": "SELECT CAST((distance_km/(duration_min/60.0))/10 AS INT)*10 || '' as fascia, ROUND(AVG(efficiency_kwh_100km),1) as \"kWh/100km\" FROM trips WHERE duration_min > 2 AND distance_km > 0.5 AND efficiency_kwh_100km IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY CAST((distance_km/(duration_min/60.0))/10 AS INT)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Efficienza per velocità media di viaggio (kWh/100km per fascia di km/h)",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 2,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT CAST((distance_km/(duration_min/60.0))/10 AS INT)*10 || '' as fascia, COUNT(*) as \"N. viaggi\", ROUND(AVG(efficiency_kwh_100km),1) as \"kWh/100km\" FROM trips WHERE duration_min > 2 AND distance_km > 0.5 AND efficiency_kwh_100km IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY CAST((distance_km/(duration_min/60.0))/10 AS INT)",
+          "queryType": "table",
+          "rawQueryText": "SELECT CAST((distance_km/(duration_min/60.0))/10 AS INT)*10 || '' as fascia, COUNT(*) as \"N. viaggi\", ROUND(AVG(efficiency_kwh_100km),1) as \"kWh/100km\" FROM trips WHERE duration_min > 2 AND distance_km > 0.5 AND efficiency_kwh_100km IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY CAST((distance_km/(duration_min/60.0))/10 AS INT)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Dettaglio per fascia di velocità",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "fascia"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 3,
+      "options": {
+        "xField": "fascia"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT CAST(((outside_temp_start_c+outside_temp_end_c)/2.0)/5 AS INT)*5 || '' as fascia, ROUND(AVG(efficiency_kwh_100km),1) as \"kWh/100km\" FROM trips WHERE outside_temp_start_c IS NOT NULL AND outside_temp_end_c IS NOT NULL AND efficiency_kwh_100km IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY CAST(((outside_temp_start_c+outside_temp_end_c)/2.0)/5 AS INT)",
+          "queryType": "table",
+          "rawQueryText": "SELECT CAST(((outside_temp_start_c+outside_temp_end_c)/2.0)/5 AS INT)*5 || '' as fascia, ROUND(AVG(efficiency_kwh_100km),1) as \"kWh/100km\" FROM trips WHERE outside_temp_start_c IS NOT NULL AND outside_temp_end_c IS NOT NULL AND efficiency_kwh_100km IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY CAST(((outside_temp_start_c+outside_temp_end_c)/2.0)/5 AS INT)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Efficienza per temperatura esterna (kWh/100km per fascia di °C)",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 4,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT CAST(((outside_temp_start_c+outside_temp_end_c)/2.0)/5 AS INT)*5 || '' as fascia, COUNT(*) as \"N. viaggi\", ROUND(AVG(efficiency_kwh_100km),1) as \"kWh/100km\" FROM trips WHERE outside_temp_start_c IS NOT NULL AND outside_temp_end_c IS NOT NULL AND efficiency_kwh_100km IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY CAST(((outside_temp_start_c+outside_temp_end_c)/2.0)/5 AS INT)",
+          "queryType": "table",
+          "rawQueryText": "SELECT CAST(((outside_temp_start_c+outside_temp_end_c)/2.0)/5 AS INT)*5 || '' as fascia, COUNT(*) as \"N. viaggi\", ROUND(AVG(efficiency_kwh_100km),1) as \"kWh/100km\" FROM trips WHERE outside_temp_start_c IS NOT NULL AND outside_temp_end_c IS NOT NULL AND efficiency_kwh_100km IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY CAST(((outside_temp_start_c+outside_temp_end_c)/2.0)/5 AS INT)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Dettaglio per fascia di temperatura",
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 30
+      },
+      "id": 5,
+      "panels": [],
+      "title": "Tempo trascorso per velocità",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "min": 0,
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 31
+      },
+      "id": 6,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "/^minuti$/",
+          "values": true
+        },
+        "showUnfilled": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT CAST(speed_kmh/10 AS INT)*10 || ' km/h' as fascia, COUNT(*) as minuti FROM positions WHERE speed_kmh > 0 AND strftime('%s', recorded_at)*1000 >= $__from AND strftime('%s', recorded_at)*1000 <= $__to GROUP BY 1 ORDER BY CAST(speed_kmh/10 AS INT)",
+          "queryType": "table",
+          "rawQueryText": "SELECT CAST(speed_kmh/10 AS INT)*10 || ' km/h' as fascia, COUNT(*) as minuti FROM positions WHERE speed_kmh > 0 AND strftime('%s', recorded_at)*1000 >= $__from AND strftime('%s', recorded_at)*1000 <= $__to GROUP BY 1 ORDER BY CAST(speed_kmh/10 AS INT)",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Tempo trascorso per fascia di velocità (min, stimato)",
+      "type": "bargauge"
+    }
+  ],
+  "schemaVersion": 39,
+  "time": {
+    "from": "now-1y",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "LeapMotor Mate - Velocita e Temperatura",
+  "uid": "lm-velocita-temp"
+}

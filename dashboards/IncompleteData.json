@@ -1,0 +1,384 @@
+{
+  "panels": [
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT 'VIN: ' || vin as vin, 'Modello: ' || car_type as modello, 'Capacità batteria: ' || capacity_kwh || ' kWh' as capacita, 'Capacità nominale: ' || COALESCE(capacity_nominal_kwh, capacity_kwh) || ' kWh' as nominale FROM vehicles LIMIT 1",
+          "queryType": "table",
+          "rawQueryText": "SELECT 'VIN: ' || vin as vin, 'Modello: ' || car_type as modello, 'Capacità batteria: ' || capacity_kwh || ' kWh' as capacita, 'Capacità nominale: ' || COALESCE(capacity_nominal_kwh, capacity_kwh) || ' kWh' as nominale FROM vehicles LIMIT 1",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Informazioni veicolo 🚗",
+      "type": "table"
+    },
+    {
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 2,
+      "options": {
+        "content": "#### Qualità dati\n\nQuesta pagina controlla se ci sono **viaggi** o **ricariche** rimasti aperti (senza un orario di fine registrato) o con metriche mancanti — segnali di un problema di raccolta dati da correggere direttamente nel database di LeapMotor Mate.",
+        "mode": "markdown"
+      },
+      "title": "",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-orange",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 6
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT COUNT(*) as value FROM trips WHERE efficiency_kwh_100km IS NULL OR distance_km IS NULL",
+          "queryType": "table",
+          "rawQueryText": "SELECT COUNT(*) as value FROM trips WHERE efficiency_kwh_100km IS NULL OR distance_km IS NULL",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Viaggi con dati incompleti",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-orange",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 6
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT COUNT(*) as value FROM charges WHERE energy_added_kwh IS NULL OR cost IS NULL",
+          "queryType": "table",
+          "rawQueryText": "SELECT COUNT(*) as value FROM charges WHERE energy_added_kwh IS NULL OR cost IS NULL",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Ricariche con dati incompleti",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-orange",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 6
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "value",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT COUNT(*) as value FROM offline_gaps",
+          "queryType": "table",
+          "rawQueryText": "SELECT COUNT(*) as value FROM offline_gaps",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Interruzioni di tracciamento",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-orange",
+                "value": null
+              }
+            ]
+          },
+          "unit": "km"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 6
+      },
+      "id": 6,
+      "options": {
+        "colorMode": "value",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT ROUND(SUM(distance_km),0) as value FROM offline_gaps",
+          "queryType": "table",
+          "rawQueryText": "SELECT ROUND(SUM(distance_km),0) as value FROM offline_gaps",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Km persi nelle interruzioni",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      "id": 7,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT id as \"ID viaggio\", started_at as Inizio, distance_km as \"Distanza (km)\", duration_min as \"Durata (min)\" FROM trips WHERE ended_at IS NULL ORDER BY started_at DESC",
+          "queryType": "table",
+          "rawQueryText": "SELECT id as \"ID viaggio\", started_at as Inizio, distance_km as \"Distanza (km)\", duration_min as \"Durata (min)\" FROM trips WHERE ended_at IS NULL ORDER BY started_at DESC",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Viaggi ancora aperti 🛣️",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 10
+      },
+      "id": 8,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT id as \"ID ricarica\", started_at as Inizio, energy_added_kwh as kWh, start_soc as \"SOC iniziale\", end_soc as \"SOC finale\" FROM charges WHERE ended_at IS NULL ORDER BY started_at DESC",
+          "queryType": "table",
+          "rawQueryText": "SELECT id as \"ID ricarica\", started_at as Inizio, energy_added_kwh as kWh, start_soc as \"SOC iniziale\", end_soc as \"SOC finale\" FROM charges WHERE ended_at IS NULL ORDER BY started_at DESC",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Ricariche ancora aperte 🔋",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 9,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT started_at as Inizio, ended_at as Fine, ROUND(distance_km,1) as \"Distanza persa (km)\", ROUND(soc_start,0) as \"SOC iniziale\", ROUND(soc_end,0) as \"SOC finale\", ROUND(energy_kwh,1) as \"Energia (kWh)\" FROM offline_gaps ORDER BY started_at DESC",
+          "queryType": "table",
+          "rawQueryText": "SELECT started_at as Inizio, ended_at as Fine, ROUND(distance_km,1) as \"Distanza persa (km)\", ROUND(soc_start,0) as \"SOC iniziale\", ROUND(soc_end,0) as \"SOC finale\", ROUND(energy_kwh,1) as \"Energia (kWh)\" FROM offline_gaps ORDER BY started_at DESC",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Dettaglio interruzioni di tracciamento",
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 39,
+  "time": {
+    "from": "now-1y",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "LeapMotor Mate - Qualita Dati",
+  "uid": "lm-qualita-dati"
+}

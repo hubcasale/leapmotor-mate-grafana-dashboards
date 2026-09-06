@@ -1,0 +1,375 @@
+{
+  "panels": [
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT started_at as Inizio, ROUND(distance_km,1) as \"Distanza (km)\", ROUND(duration_min,0) as \"Durata (min)\", ROUND(efficiency_kwh_100km,1) as \"Efficienza (kWh/100km)\" FROM trips WHERE id = $trip_id",
+          "queryType": "table",
+          "rawQueryText": "SELECT started_at as Inizio, ROUND(distance_km,1) as \"Distanza (km)\", ROUND(duration_min,0) as \"Durata (min)\", ROUND(efficiency_kwh_100km,1) as \"Efficienza (kWh/100km)\" FROM trips WHERE id = $trip_id",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Dettaglio viaggio",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 2,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "osm-standard"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": false,
+              "style": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "opacity": 0,
+                "size": {
+                  "fixed": 3,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                }
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Temp Fix Grafana Issue #89777",
+            "tooltip": false,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "style": {
+                "color": {
+                  "fixed": "red"
+                },
+                "lineWidth": 5,
+                "opacity": 1
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Percorso",
+            "opacity": 1,
+            "tooltip": true,
+            "type": "route"
+          }
+        ],
+        "view": {
+          "allLayers": true,
+          "id": "fit",
+          "lat": 0,
+          "lon": 0,
+          "zoom": 15
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT latitude, longitude FROM trip_positions WHERE trip_id = $trip_id ORDER BY recorded_at",
+          "queryType": "table",
+          "rawQueryText": "SELECT latitude, longitude FROM trip_positions WHERE trip_id = $trip_id ORDER BY recorded_at",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Percorso del viaggio selezionato",
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 17
+      },
+      "id": 3,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "osm-standard"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": false,
+              "style": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "opacity": 0,
+                "size": {
+                  "fixed": 3,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                }
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Temp Fix Grafana Issue #89777",
+            "tooltip": false,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "style": {
+                "color": {
+                  "fixed": "cyan"
+                },
+                "opacity": 0.9,
+                "size": {
+                  "field": "distanza",
+                  "max": 20,
+                  "min": 3
+                }
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Punti",
+            "opacity": 1,
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "view": {
+          "allLayers": true,
+          "id": "fit",
+          "lat": 0,
+          "lon": 0,
+          "zoom": 15
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT start_lat as latitude, start_lon as longitude, ROUND(distance_km,1) as distanza FROM trips WHERE start_lat IS NOT NULL ORDER BY started_at DESC LIMIT 200",
+          "queryType": "table",
+          "rawQueryText": "SELECT start_lat as latitude, start_lon as longitude, ROUND(distance_km,1) as distanza FROM trips WHERE start_lat IS NOT NULL ORDER BY started_at DESC LIMIT 200",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Punti di partenza viaggi recenti",
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 17
+      },
+      "id": 4,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "osm-standard"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": false,
+              "style": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "opacity": 0,
+                "size": {
+                  "fixed": 3,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "symbolAlign": {
+                  "horizontal": "center",
+                  "vertical": "center"
+                }
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Temp Fix Grafana Issue #89777",
+            "tooltip": false,
+            "type": "markers"
+          },
+          {
+            "config": {
+              "style": {
+                "color": {
+                  "fixed": "yellow"
+                },
+                "opacity": 0.9,
+                "size": {
+                  "field": "kwh",
+                  "max": 20,
+                  "min": 3
+                }
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Punti",
+            "opacity": 1,
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "view": {
+          "allLayers": true,
+          "id": "fit",
+          "lat": 0,
+          "lon": 0,
+          "zoom": 15
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT latitude, longitude, ROUND(energy_added_kwh,1) as kwh FROM charges WHERE latitude IS NOT NULL ORDER BY started_at DESC LIMIT 200",
+          "queryType": "table",
+          "rawQueryText": "SELECT latitude, longitude, ROUND(energy_added_kwh,1) as kwh FROM charges WHERE latitude IS NOT NULL ORDER BY started_at DESC LIMIT 200",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Posizioni di ricarica",
+      "type": "geomap"
+    }
+  ],
+  "schemaVersion": 39,
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "frser-sqlite-datasource",
+          "uid": "P0941905C0D8205B6"
+        },
+        "includeAll": false,
+        "label": "Viaggio",
+        "multi": false,
+        "name": "trip_id",
+        "query": "SELECT t.id as __value, t.started_at || ' - ' || ROUND(t.distance_km,1) || ' km' as __text FROM trips t WHERE t.id IN (SELECT DISTINCT trip_id FROM trip_positions) ORDER BY t.started_at DESC LIMIT 60",
+        "refresh": 1,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1y",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "LeapMotor Mate - Mappe",
+  "uid": "lm-mappe"
+}

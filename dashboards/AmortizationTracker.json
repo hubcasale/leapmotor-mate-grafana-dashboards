@@ -1,0 +1,538 @@
+{
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "panels": [],
+      "title": "Ammortamento (EV vs. auto endotermica)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "km"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT ROUND(SUM(distance_km),0) as value FROM trips",
+          "queryType": "table",
+          "rawQueryText": "SELECT ROUND(SUM(distance_km),0) as value FROM trips",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Km totali percorsi",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "super-light-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyEUR"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 1
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT ROUND(SUM(cost),2) as value FROM charges WHERE cost IS NOT NULL",
+          "queryType": "table",
+          "rawQueryText": "SELECT ROUND(SUM(cost),2) as value FROM charges WHERE cost IS NOT NULL",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Costo ricariche reale (€)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-orange",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyEUR"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 1
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT ROUND((SELECT SUM(distance_km) FROM trips) * $fuel_price_km, 2) as value",
+          "queryType": "table",
+          "rawQueryText": "SELECT ROUND((SELECT SUM(distance_km) FROM trips) * $fuel_price_km, 2) as value",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Costo carburante equivalente (€)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyEUR"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 1
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "WITH periodic AS (\n  SELECT strftime('$period', started_at) AS period_start, SUM(t.distance_km) AS km\n  FROM trips t GROUP BY 1\n),\ncost_periodic AS (\n  SELECT strftime('$period', c.started_at) AS period_start, SUM(c.cost) AS cost\n  FROM charges c WHERE c.cost IS NOT NULL GROUP BY 1\n),\nmerged AS (\n  SELECT p.period_start, COALESCE(p.km,0) as km, COALESCE(cp.cost,0) as cost\n  FROM periodic p LEFT JOIN cost_periodic cp ON cp.period_start = p.period_start\n),\ncum AS (\n  SELECT period_start, km, cost,\n    SUM(km) OVER (ORDER BY period_start) as cum_km,\n    SUM(cost) OVER (ORDER BY period_start) as cum_cost\n  FROM merged\n)\nSELECT ROUND(cum_km * $fuel_price_km - cum_cost, 2) as value FROM cum ORDER BY period_start DESC LIMIT 1\n",
+          "queryType": "table",
+          "rawQueryText": "WITH periodic AS (\n  SELECT strftime('$period', started_at) AS period_start, SUM(t.distance_km) AS km\n  FROM trips t GROUP BY 1\n),\ncost_periodic AS (\n  SELECT strftime('$period', c.started_at) AS period_start, SUM(c.cost) AS cost\n  FROM charges c WHERE c.cost IS NOT NULL GROUP BY 1\n),\nmerged AS (\n  SELECT p.period_start, COALESCE(p.km,0) as km, COALESCE(cp.cost,0) as cost\n  FROM periodic p LEFT JOIN cost_periodic cp ON cp.period_start = p.period_start\n),\ncum AS (\n  SELECT period_start, km, cost,\n    SUM(km) OVER (ORDER BY period_start) as cum_km,\n    SUM(cost) OVER (ORDER BY period_start) as cum_cost\n  FROM merged\n)\nSELECT ROUND(cum_km * $fuel_price_km - cum_cost, 2) as value FROM cum ORDER BY period_start DESC LIMIT 1\n",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Risparmio cumulato (€)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyEUR"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 16,
+        "y": 1
+      },
+      "id": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "WITH periodic AS (\n  SELECT strftime('$period', started_at) AS period_start, SUM(t.distance_km) AS km\n  FROM trips t GROUP BY 1\n),\ncost_periodic AS (\n  SELECT strftime('$period', c.started_at) AS period_start, SUM(c.cost) AS cost\n  FROM charges c WHERE c.cost IS NOT NULL GROUP BY 1\n),\nmerged AS (\n  SELECT p.period_start, COALESCE(p.km,0) as km, COALESCE(cp.cost,0) as cost\n  FROM periodic p LEFT JOIN cost_periodic cp ON cp.period_start = p.period_start\n),\ncum AS (\n  SELECT period_start, km, cost,\n    SUM(km) OVER (ORDER BY period_start) as cum_km,\n    SUM(cost) OVER (ORDER BY period_start) as cum_cost\n  FROM merged\n)\nSELECT MAX(ROUND($extra_cost - (cum_km * $fuel_price_km - cum_cost), 2), 0) as value FROM cum ORDER BY period_start DESC LIMIT 1\n",
+          "queryType": "table",
+          "rawQueryText": "WITH periodic AS (\n  SELECT strftime('$period', started_at) AS period_start, SUM(t.distance_km) AS km\n  FROM trips t GROUP BY 1\n),\ncost_periodic AS (\n  SELECT strftime('$period', c.started_at) AS period_start, SUM(c.cost) AS cost\n  FROM charges c WHERE c.cost IS NOT NULL GROUP BY 1\n),\nmerged AS (\n  SELECT p.period_start, COALESCE(p.km,0) as km, COALESCE(cp.cost,0) as cost\n  FROM periodic p LEFT JOIN cost_periodic cp ON cp.period_start = p.period_start\n),\ncum AS (\n  SELECT period_start, km, cost,\n    SUM(km) OVER (ORDER BY period_start) as cum_km,\n    SUM(cost) OVER (ORDER BY period_start) as cum_cost\n  FROM merged\n)\nSELECT MAX(ROUND($extra_cost - (cum_km * $fuel_price_km - cum_cost), 2), 0) as value FROM cum ORDER BY period_start DESC LIMIT 1\n",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Mancante al pareggio (€)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyEUR"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 1
+      },
+      "id": 7,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT $extra_cost as value",
+          "queryType": "table",
+          "rawQueryText": "SELECT $extra_cost as value",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Extra costo EV (€, parametro)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyEUR"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Periodo"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mancante al pareggio (€)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Risparmio cumulato (€)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "xField": "Periodo"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "WITH periodic AS (\n  SELECT strftime('$period', started_at) AS period_start, SUM(t.distance_km) AS km\n  FROM trips t GROUP BY 1\n),\ncost_periodic AS (\n  SELECT strftime('$period', c.started_at) AS period_start, SUM(c.cost) AS cost\n  FROM charges c WHERE c.cost IS NOT NULL GROUP BY 1\n),\nmerged AS (\n  SELECT p.period_start, COALESCE(p.km,0) as km, COALESCE(cp.cost,0) as cost\n  FROM periodic p LEFT JOIN cost_periodic cp ON cp.period_start = p.period_start\n),\ncum AS (\n  SELECT period_start, km, cost,\n    SUM(km) OVER (ORDER BY period_start) as cum_km,\n    SUM(cost) OVER (ORDER BY period_start) as cum_cost\n  FROM merged\n)\nSELECT period_start as Periodo,\n  ROUND(cum_km * $fuel_price_km - cum_cost, 2) as \"Risparmio cumulato (€)\",\n  ROUND($extra_cost - (cum_km * $fuel_price_km - cum_cost), 2) as \"Mancante al pareggio (€)\"\nFROM cum ORDER BY period_start\n",
+          "queryType": "table",
+          "rawQueryText": "WITH periodic AS (\n  SELECT strftime('$period', started_at) AS period_start, SUM(t.distance_km) AS km\n  FROM trips t GROUP BY 1\n),\ncost_periodic AS (\n  SELECT strftime('$period', c.started_at) AS period_start, SUM(c.cost) AS cost\n  FROM charges c WHERE c.cost IS NOT NULL GROUP BY 1\n),\nmerged AS (\n  SELECT p.period_start, COALESCE(p.km,0) as km, COALESCE(cp.cost,0) as cost\n  FROM periodic p LEFT JOIN cost_periodic cp ON cp.period_start = p.period_start\n),\ncum AS (\n  SELECT period_start, km, cost,\n    SUM(km) OVER (ORDER BY period_start) as cum_km,\n    SUM(cost) OVER (ORDER BY period_start) as cum_cost\n  FROM merged\n)\nSELECT period_start as Periodo,\n  ROUND(cum_km * $fuel_price_km - cum_cost, 2) as \"Risparmio cumulato (€)\",\n  ROUND($extra_cost - (cum_km * $fuel_price_km - cum_cost), 2) as \"Mancante al pareggio (€)\"\nFROM cum ORDER BY period_start\n",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Andamento risparmio cumulato vs. pareggio",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 9,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "WITH periodic AS (\n  SELECT strftime('$period', started_at) AS period_start, SUM(t.distance_km) AS km\n  FROM trips t GROUP BY 1\n),\ncost_periodic AS (\n  SELECT strftime('$period', c.started_at) AS period_start, SUM(c.cost) AS cost\n  FROM charges c WHERE c.cost IS NOT NULL GROUP BY 1\n),\nmerged AS (\n  SELECT p.period_start, COALESCE(p.km,0) as km, COALESCE(cp.cost,0) as cost\n  FROM periodic p LEFT JOIN cost_periodic cp ON cp.period_start = p.period_start\n),\ncum AS (\n  SELECT period_start, km, cost,\n    SUM(km) OVER (ORDER BY period_start) as cum_km,\n    SUM(cost) OVER (ORDER BY period_start) as cum_cost\n  FROM merged\n)\nSELECT period_start as Periodo, ROUND(km,0) as \"Km periodo\", ROUND(cost,2) as \"Costo ricarica periodo (€)\",\n  ROUND(cum_km,0) as \"Km cumulati\", ROUND(cum_cost,2) as \"Costo ricarica cumulato (€)\",\n  ROUND(cum_km * $fuel_price_km, 2) as \"Costo carburante equiv. cumulato (€)\",\n  ROUND(cum_km * $fuel_price_km - cum_cost, 2) as \"Risparmio cumulato (€)\",\n  ROUND($extra_cost - (cum_km * $fuel_price_km - cum_cost), 2) as \"Mancante al pareggio (€)\"\nFROM cum ORDER BY period_start\n",
+          "queryType": "table",
+          "rawQueryText": "WITH periodic AS (\n  SELECT strftime('$period', started_at) AS period_start, SUM(t.distance_km) AS km\n  FROM trips t GROUP BY 1\n),\ncost_periodic AS (\n  SELECT strftime('$period', c.started_at) AS period_start, SUM(c.cost) AS cost\n  FROM charges c WHERE c.cost IS NOT NULL GROUP BY 1\n),\nmerged AS (\n  SELECT p.period_start, COALESCE(p.km,0) as km, COALESCE(cp.cost,0) as cost\n  FROM periodic p LEFT JOIN cost_periodic cp ON cp.period_start = p.period_start\n),\ncum AS (\n  SELECT period_start, km, cost,\n    SUM(km) OVER (ORDER BY period_start) as cum_km,\n    SUM(cost) OVER (ORDER BY period_start) as cum_cost\n  FROM merged\n)\nSELECT period_start as Periodo, ROUND(km,0) as \"Km periodo\", ROUND(cost,2) as \"Costo ricarica periodo (€)\",\n  ROUND(cum_km,0) as \"Km cumulati\", ROUND(cum_cost,2) as \"Costo ricarica cumulato (€)\",\n  ROUND(cum_km * $fuel_price_km, 2) as \"Costo carburante equiv. cumulato (€)\",\n  ROUND(cum_km * $fuel_price_km - cum_cost, 2) as \"Risparmio cumulato (€)\",\n  ROUND($extra_cost - (cum_km * $fuel_price_km - cum_cost), 2) as \"Mancante al pareggio (€)\"\nFROM cum ORDER BY period_start\n",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Dettaglio per periodo",
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 39,
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "Mensile",
+          "value": "%Y-%m"
+        },
+        "includeAll": false,
+        "label": "Periodo",
+        "multi": false,
+        "name": "period",
+        "options": [
+          {
+            "selected": true,
+            "text": "Mensile",
+            "value": "%Y-%m"
+          },
+          {
+            "selected": false,
+            "text": "Annuale",
+            "value": "%Y"
+          }
+        ],
+        "query": "Mensile : %Y-%m, Annuale : %Y",
+        "type": "custom"
+      },
+      {
+        "current": {
+          "text": "5000",
+          "value": "5000"
+        },
+        "label": "Extra costo EV vs. endotermica (€)",
+        "name": "extra_cost",
+        "query": "5000",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": "0.10",
+          "value": "0.10"
+        },
+        "label": "Costo carburante equivalente (€/km)",
+        "name": "fuel_price_km",
+        "query": "0.10",
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1y",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "LeapMotor Mate - Ammortamento",
+  "uid": "lm-ammortamento"
+}

@@ -1,0 +1,1027 @@
+{
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "panels": [],
+      "title": "Riepilogo",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-yellow",
+                "value": null
+              }
+            ]
+          },
+          "unit": "kwatth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT ROUND(SUM(energy_added_kwh),0) as value FROM charges WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "queryType": "table",
+          "rawQueryText": "SELECT ROUND(SUM(energy_added_kwh),0) as value FROM charges WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Energia totale caricata (kWh)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-yellow",
+                "value": null
+              }
+            ]
+          },
+          "unit": "kwatth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 3,
+        "y": 1
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT COALESCE(ROUND(SUM(energy_added_kwh),0),0) as value FROM charges WHERE is_free=1 AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "queryType": "table",
+          "rawQueryText": "SELECT COALESCE(ROUND(SUM(energy_added_kwh),0),0) as value FROM charges WHERE is_free=1 AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Energia gratuita (kWh)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 2,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-yellow",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 6,
+        "y": 1
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT ROUND(SUM(energy_added_kwh)*1.0/NULLIF((SELECT SUM(distance_km) FROM trips WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to),0),2) as value FROM charges WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "queryType": "table",
+          "rawQueryText": "SELECT ROUND(SUM(energy_added_kwh)*1.0/NULLIF((SELECT SUM(distance_km) FROM trips WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to),0),2) as value FROM charges WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "kWh per km percorso",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-yellow",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 9,
+        "y": 1
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT COUNT(*) as value FROM charges WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "queryType": "table",
+          "rawQueryText": "SELECT COUNT(*) as value FROM charges WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Numero di ricariche",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "min": 0,
+          "unit": "kwatth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 6,
+        "x": 12,
+        "y": 1
+      },
+      "id": 6,
+      "options": {
+        "displayMode": "gradient",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "/^energy$/",
+          "values": true
+        },
+        "showUnfilled": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT COALESCE(station_name, location_name, 'Sconosciuta') as Stazione, ROUND(SUM(energy_added_kwh),1) as energy FROM charges WHERE location_type != 'HOME' AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY energy DESC LIMIT 10",
+          "queryType": "table",
+          "rawQueryText": "SELECT COALESCE(station_name, location_name, 'Sconosciuta') as Stazione, ROUND(SUM(energy_added_kwh),1) as energy FROM charges WHERE location_type != 'HOME' AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY energy DESC LIMIT 10",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Stazioni principali",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "kwatth"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "AC"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DC"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 6,
+        "x": 18,
+        "y": 1
+      },
+      "id": 7,
+      "options": {
+        "displayLabels": [
+          "name",
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT COALESCE(charge_type,'Sconosciuto') as metric, ROUND(SUM(energy_added_kwh),1) as value FROM charges WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1",
+          "queryType": "table",
+          "rawQueryText": "SELECT COALESCE(charge_type,'Sconosciuto') as metric, ROUND(SUM(energy_added_kwh),1) as value FROM charges WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Energia per tipo (AC/DC)",
+      "type": "piechart"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 8,
+      "panels": [],
+      "title": "Distanza e Costi",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "km"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 0,
+        "y": 14
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT ROUND(SUM(distance_km),0) as value FROM trips WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "queryType": "table",
+          "rawQueryText": "SELECT ROUND(SUM(distance_km),0) as value FROM trips WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Distanza totale percorsa (km)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "km"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 3,
+        "y": 14
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT COALESCE(ROUND((SELECT SUM(distance_km) FROM trips WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to) * (SELECT SUM(energy_added_kwh) FROM charges WHERE is_free=1 AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to) / NULLIF((SELECT SUM(energy_added_kwh) FROM charges WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to),0),0),0) as value",
+          "queryType": "table",
+          "rawQueryText": "SELECT COALESCE(ROUND((SELECT SUM(distance_km) FROM trips WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to) * (SELECT SUM(energy_added_kwh) FROM charges WHERE is_free=1 AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to) / NULLIF((SELECT SUM(energy_added_kwh) FROM charges WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to),0),0),0) as value",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Distanza stimata gratuita (km)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "super-light-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyEUR"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 6,
+        "y": 14
+      },
+      "id": 11,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT ROUND(SUM(cost),2) as value FROM charges WHERE charge_type='AC' AND cost IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "queryType": "table",
+          "rawQueryText": "SELECT ROUND(SUM(cost),2) as value FROM charges WHERE charge_type='AC' AND cost IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Costo ricariche AC (€)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "super-light-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyEUR"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 9,
+        "y": 14
+      },
+      "id": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT ROUND(SUM(cost),2) as value FROM charges WHERE charge_type='DC' AND cost IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "queryType": "table",
+          "rawQueryText": "SELECT ROUND(SUM(cost),2) as value FROM charges WHERE charge_type='DC' AND cost IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Costo ricariche DC (€)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "super-light-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyEUR"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 12,
+        "y": 14
+      },
+      "id": 13,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT ROUND(SUM(cost),2) as value FROM charges WHERE cost IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "queryType": "table",
+          "rawQueryText": "SELECT ROUND(SUM(cost),2) as value FROM charges WHERE cost IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Costo totale (€)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-orange",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyEUR"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 15,
+        "y": 14
+      },
+      "id": 14,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT ROUND(SUM(cost)*1.0/NULLIF((SELECT SUM(distance_km) FROM trips WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to),0)*100,2) as value FROM charges WHERE cost IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "queryType": "table",
+          "rawQueryText": "SELECT ROUND(SUM(cost)*1.0/NULLIF((SELECT SUM(distance_km) FROM trips WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to),0)*100,2) as value FROM charges WHERE cost IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Costo medio per 100km (€)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-orange",
+                "value": null
+              }
+            ]
+          },
+          "unit": "currencyEUR"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 18,
+        "y": 14
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT ROUND(SUM(cost)*1.0/NULLIF(SUM(energy_added_kwh),0),3) as value FROM charges WHERE cost IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "queryType": "table",
+          "rawQueryText": "SELECT ROUND(SUM(cost)*1.0/NULLIF(SUM(energy_added_kwh),0),3) as value FROM charges WHERE cost IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Costo medio per kWh (€)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-orange",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 21,
+        "y": 14
+      },
+      "id": 16,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT ROUND(AVG(efficiency_kwh_100km),1) as value FROM trips WHERE efficiency_kwh_100km IS NOT NULL AND efficiency_kwh_100km > 0 AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "queryType": "table",
+          "rawQueryText": "SELECT ROUND(AVG(efficiency_kwh_100km),1) as value FROM trips WHERE efficiency_kwh_100km IS NOT NULL AND efficiency_kwh_100km > 0 AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Efficienza media (kWh/100km)",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 17,
+      "panels": [],
+      "title": "Top 10 Ricariche",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 18
+      },
+      "id": 18,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT COALESCE(station_name, location_name, 'Sconosciuta') as Stazione, COUNT(*) as Ricariche, ROUND(SUM(energy_added_kwh),1) as kWh FROM charges WHERE location_type != 'HOME' AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY kWh DESC LIMIT 10",
+          "queryType": "table",
+          "rawQueryText": "SELECT COALESCE(station_name, location_name, 'Sconosciuta') as Stazione, COUNT(*) as Ricariche, ROUND(SUM(energy_added_kwh),1) as kWh FROM charges WHERE location_type != 'HOME' AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY kWh DESC LIMIT 10",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Top 10 stazioni generali (per energia)",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 8,
+        "y": 18
+      },
+      "id": 19,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT COALESCE(station_name, location_name, 'Sconosciuta') as Stazione, COUNT(*) as Ricariche, ROUND(SUM(energy_added_kwh),1) as kWh, ROUND(SUM(cost),2) as Costo FROM charges WHERE location_type != 'HOME' AND is_free IS NOT 1 AND cost IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY kWh DESC LIMIT 10",
+          "queryType": "table",
+          "rawQueryText": "SELECT COALESCE(station_name, location_name, 'Sconosciuta') as Stazione, COUNT(*) as Ricariche, ROUND(SUM(energy_added_kwh),1) as kWh, ROUND(SUM(cost),2) as Costo FROM charges WHERE location_type != 'HOME' AND is_free IS NOT 1 AND cost IS NOT NULL AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY kWh DESC LIMIT 10",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Top 10 stazioni a pagamento",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 18
+      },
+      "id": 20,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT COALESCE(station_name, location_name, 'Sconosciuta') as Stazione, COUNT(*) as Ricariche, ROUND(SUM(energy_added_kwh),1) as kWh FROM charges WHERE is_free = 1 AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY kWh DESC LIMIT 10",
+          "queryType": "table",
+          "rawQueryText": "SELECT COALESCE(station_name, location_name, 'Sconosciuta') as Stazione, COUNT(*) as Ricariche, ROUND(SUM(energy_added_kwh),1) as kWh FROM charges WHERE is_free = 1 AND strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY kWh DESC LIMIT 10",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Top 10 stazioni gratuite",
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 28
+      },
+      "id": 21,
+      "panels": [],
+      "title": "Statistiche mensili",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "id": 22,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT strftime('%Y-%m', started_at) as Mese, COUNT(*) as \"N. ricariche\", ROUND(SUM(energy_added_kwh),1) as kWh, ROUND(SUM(cost),2) as Costo, ROUND(SUM(cost)*1.0/NULLIF(SUM(energy_added_kwh),0),3) as \"Costo medio/kWh\" FROM charges WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY 1 DESC LIMIT 24",
+          "queryType": "table",
+          "rawQueryText": "SELECT strftime('%Y-%m', started_at) as Mese, COUNT(*) as \"N. ricariche\", ROUND(SUM(energy_added_kwh),1) as kWh, ROUND(SUM(cost),2) as Costo, ROUND(SUM(cost)*1.0/NULLIF(SUM(energy_added_kwh),0),3) as \"Costo medio/kWh\" FROM charges WHERE strftime('%s', started_at)*1000 >= $__from AND strftime('%s', started_at)*1000 <= $__to GROUP BY 1 ORDER BY 1 DESC LIMIT 24",
+          "refId": "A",
+          "timeColumns": []
+        }
+      ],
+      "title": "Ricariche per mese",
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 39,
+  "time": {
+    "from": "now-1y",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "LeapMotor Mate - Ricariche",
+  "uid": "lm-ricariche"
+}

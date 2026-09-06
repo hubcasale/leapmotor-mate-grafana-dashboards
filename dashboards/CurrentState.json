@@ -1,0 +1,626 @@
+{
+  "panels": [
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "light-red",
+                "value": null
+              },
+              {
+                "color": "semi-dark-yellow",
+                "value": 10
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 20
+              },
+              {
+                "color": "semi-dark-yellow",
+                "value": 81
+              },
+              {
+                "color": "light-red",
+                "value": 91
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT soc as value FROM positions ORDER BY recorded_at DESC LIMIT 1",
+          "queryType": "table",
+          "rawQueryText": "SELECT soc as value FROM positions ORDER BY recorded_at DESC LIMIT 1",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "Livello batteria (%)",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "unit": "km"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 4,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT range_km as value FROM positions ORDER BY recorded_at DESC LIMIT 1",
+          "queryType": "table",
+          "rawQueryText": "SELECT range_km as value FROM positions ORDER BY recorded_at DESC LIMIT 1",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "Autonomia (km)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "unit": "km"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 8,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT odometer_km as value FROM positions ORDER BY recorded_at DESC LIMIT 1",
+          "queryType": "table",
+          "rawQueryText": "SELECT odometer_km as value FROM positions ORDER BY recorded_at DESC LIMIT 1",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "Odometro (km)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "max": 45,
+          "min": -10,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 5
+              },
+              {
+                "color": "semi-dark-yellow",
+                "value": 30
+              },
+              {
+                "color": "light-red",
+                "value": 38
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 12,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT outside_temp as value FROM positions ORDER BY recorded_at DESC LIMIT 1",
+          "queryType": "table",
+          "rawQueryText": "SELECT outside_temp as value FROM positions ORDER BY recorded_at DESC LIMIT 1",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "Temperatura esterna (°C)",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "max": 45,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 15
+              },
+              {
+                "color": "semi-dark-yellow",
+                "value": 28
+              },
+              {
+                "color": "light-red",
+                "value": 35
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      "id": 5,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT inside_temp as value FROM positions ORDER BY recorded_at DESC LIMIT 1",
+          "queryType": "table",
+          "rawQueryText": "SELECT inside_temp as value FROM positions ORDER BY recorded_at DESC LIMIT 1",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "Temperatura interna (°C)",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 7,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT recorded_at as \"Rilevato il\", CASE WHEN charging=1 THEN 'In ricarica' WHEN ready=1 THEN 'Accesa' WHEN is_locked=1 THEN 'Parcheggiata (bloccata)' ELSE 'Parcheggiata' END as Stato, plug_connected as \"Presa collegata\", door_driver_open as \"Portiera guidatore\", door_passenger_open as \"Portiera passeggero\" FROM positions ORDER BY recorded_at DESC LIMIT 1",
+          "queryType": "table",
+          "rawQueryText": "SELECT recorded_at as \"Rilevato il\", CASE WHEN charging=1 THEN 'In ricarica' WHEN ready=1 THEN 'Accesa' WHEN is_locked=1 THEN 'Parcheggiata (bloccata)' ELSE 'Parcheggiata' END as Stato, plug_connected as \"Presa collegata\", door_driver_open as \"Portiera guidatore\", door_passenger_open as \"Portiera passeggero\" FROM positions ORDER BY recorded_at DESC LIMIT 1",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "Ultimo aggiornamento",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 7
+      },
+      "id": 8,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT started_at as Inizio, ended_at as Fine, ROUND(start_soc,0) as \"SOC iniziale\", ROUND(end_soc,0) as \"SOC finale\", ROUND(energy_added_kwh,1) as kWh, ROUND(cost,2) as Costo, charge_type as Tipo, COALESCE(station_name, location_name, '-') as Luogo FROM charges ORDER BY started_at DESC LIMIT 1",
+          "queryType": "table",
+          "rawQueryText": "SELECT started_at as Inizio, ended_at as Fine, ROUND(start_soc,0) as \"SOC iniziale\", ROUND(end_soc,0) as \"SOC finale\", ROUND(energy_added_kwh,1) as kWh, ROUND(cost,2) as Costo, charge_type as Tipo, COALESCE(station_name, location_name, '-') as Luogo FROM charges ORDER BY started_at DESC LIMIT 1",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "Ultima ricarica",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 7
+      },
+      "id": 9,
+      "options": {},
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT started_at as Inizio, ROUND(distance_km,1) as \"Distanza (km)\", ROUND(duration_min,0) as \"Durata (min)\", ROUND(efficiency_kwh_100km,1) as \"Efficienza (kWh/100km)\", ROUND(elevation_gain_m,0) as \"Dislivello + (m)\", ROUND(elevation_loss_m,0) as \"Dislivello - (m)\" FROM trips ORDER BY started_at DESC LIMIT 1",
+          "queryType": "table",
+          "rawQueryText": "SELECT started_at as Inizio, ROUND(distance_km,1) as \"Distanza (km)\", ROUND(duration_min,0) as \"Durata (min)\", ROUND(efficiency_kwh_100km,1) as \"Efficienza (kWh/100km)\", ROUND(elevation_gain_m,0) as \"Dislivello + (m)\", ROUND(elevation_loss_m,0) as \"Dislivello - (m)\" FROM trips ORDER BY started_at DESC LIMIT 1",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "Ultimo viaggio",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "In marcia"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "In ricarica"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Parcheggiata"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-gray",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 20
+      },
+      "id": 10,
+      "options": {
+        "displayLabels": [
+          "name",
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT CASE WHEN charging=1 THEN 'In ricarica' WHEN ready=1 THEN 'In marcia' ELSE 'Parcheggiata' END as metric, COUNT(*) as value FROM positions WHERE recorded_at >= datetime('now','-30 days') GROUP BY 1",
+          "queryType": "table",
+          "rawQueryText": "SELECT CASE WHEN charging=1 THEN 'In ricarica' WHEN ready=1 THEN 'In marcia' ELSE 'Parcheggiata' END as metric, COUNT(*) as value FROM positions WHERE recorded_at >= datetime('now','-30 days') GROUP BY 1",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "Distribuzione stati (ultimi 30 giorni)",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "frser-sqlite-datasource",
+        "uid": "P0941905C0D8205B6"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Stato"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "In marcia": {
+                        "color": "semi-dark-blue",
+                        "index": 0
+                      },
+                      "In ricarica": {
+                        "color": "semi-dark-green",
+                        "index": 1
+                      },
+                      "Parcheggiata": {
+                        "color": "light-gray",
+                        "index": 2
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 20
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "auto",
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "frser-sqlite-datasource",
+            "uid": "P0941905C0D8205B6"
+          },
+          "queryText": "SELECT recorded_at as time, CASE WHEN charging=1 THEN 'In ricarica' WHEN ready=1 THEN 'In marcia' ELSE 'Parcheggiata' END as Stato FROM positions WHERE strftime('%s', recorded_at)*1000 >= $__from AND strftime('%s', recorded_at)*1000 <= $__to ORDER BY recorded_at",
+          "queryType": "table",
+          "rawQueryText": "SELECT recorded_at as time, CASE WHEN charging=1 THEN 'In ricarica' WHEN ready=1 THEN 'In marcia' ELSE 'Parcheggiata' END as Stato FROM positions WHERE strftime('%s', recorded_at)*1000 >= $__from AND strftime('%s', recorded_at)*1000 <= $__to ORDER BY recorded_at",
+          "refId": "A",
+          "timeColumns": [
+            "time"
+          ]
+        }
+      ],
+      "title": "Timeline stati",
+      "type": "state-timeline"
+    }
+  ],
+  "schemaVersion": 39,
+  "time": {
+    "from": "now-3d",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "LeapMotor Mate - Stato Attuale",
+  "uid": "lm-stato-attuale"
+}
